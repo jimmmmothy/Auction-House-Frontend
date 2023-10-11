@@ -28,7 +28,7 @@ const Register: React.FC = () => {
         </div>
       </div>
       <div>
-        <p>
+        <p className='center'>
           Already have an account? <Link to="/login">Login</Link>
         </p>
       </div>

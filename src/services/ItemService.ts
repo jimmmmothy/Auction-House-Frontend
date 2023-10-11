@@ -1,6 +1,7 @@
 import axios from 'axios';
+import LOCALHOST from './Localhost';
 
-const HOST_NAME = 'http://localhost:8080/items';
+const HOST_NAME = `${LOCALHOST}/items`;
 
 function GetAllItems() {
     return axios.get(HOST_NAME)

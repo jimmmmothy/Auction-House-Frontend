@@ -70,6 +70,10 @@ input {
     background-color: #0056b3;
 }
 
+.center {
+    text-align: center;
+}
+
 .link-to-login {
     text-align: center;
     margin-top: 15px;
@@ -85,11 +89,6 @@ input {
 }
 
 @media (max-width: 768px) {
-    .content {
-        display: flex;
-        width: 100%;
-    }
-
     .container {
         margin: auto;
         max-width: 80%;

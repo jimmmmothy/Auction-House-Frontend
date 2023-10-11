@@ -5,6 +5,15 @@
     margin-bottom: 20px;
 }
 
+.no-indent {
+    padding-left: 0;
+}
+
+.content-body{
+    display: flex;
+    flex-direction: column;
+}
+
 .sales-item p {
     margin: 0;
 }
