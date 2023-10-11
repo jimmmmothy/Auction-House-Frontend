@@ -1,0 +1,97 @@
+.container {
+    max-width: 600px;
+    margin: auto;
+    margin-top: 0 !important;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    align-self: flex-start;
+}
+
+input {
+    background-color: white;
+    border: 1px solid #ccc;
+    color: black;
+    border-radius: 5px;
+}
+
+.input-group {
+    position: relative;
+    width: 100%;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.link-to-login {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.link-to-login a {
+    text-decoration: none;
+    color: #007BFF;
+}
+
+.link-to-login a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .content {
+        display: flex;
+        width: 100%;
+    }
+
+    .container {
+        margin: auto;
+        max-width: 80%;
+    }
+}
