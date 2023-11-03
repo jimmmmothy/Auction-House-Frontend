@@ -34,7 +34,7 @@ label {
     align-self: flex-start;
 }
 
-input {
+.field {
     background-color: white;
     border: 1px solid #ccc;
     color: black;

@@ -3,6 +3,7 @@ import NavBar from './components/navbar/NavBar.tsx'
 import Register from './layouts/register/Register'
 import './App.css'
 import Home from './layouts/home/Home.tsx'
+import '../dist/output.css'
 
 function App() {
   return (
