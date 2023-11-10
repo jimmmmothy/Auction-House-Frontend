@@ -42,39 +42,39 @@ const Register: React.FC = () => {
     <div className="container">
       <div className="row">
         <div>
-          <h2>Register a new account!</h2>
+          <h2 className='font-bold text-xl mb-5'>Register a new account!</h2>
           <form onSubmit={handleSubmit}>
-            <div className="form-group">
+            <div className="flex flex-col mb-3">
               <label htmlFor="newEmail">Email</label>
-              <input className="field" type="email" id="email" value={userData.email} onChange={handleChange} />
+              <input className="rounded-lg" type="email" id="email" value={userData.email} onChange={handleChange} />
             </div>
-            <div className="form-group">
+            <div className="flex flex-col mb-3">
               <label htmlFor="newFirstName">First Name</label>
-              <input className="field" type="text" id="firstName" value={userData.firstName} onChange={handleChange} />
+              <input className="rounded-lg" type="text" id="firstName" value={userData.firstName} onChange={handleChange} />
             </div>
-            <div className="form-group">
+            <div className="flex flex-col mb-3">
               <label htmlFor="newLastName">Last Name</label>
-              <input className="field" type="text" id="lastName" value={userData.lastName} onChange={handleChange} />
+              <input className="rounded-lg" type="text" id="lastName" value={userData.lastName} onChange={handleChange} />
             </div>
-            <div className="form-group">
+            <div className="flex flex-col mb-3">
               <label htmlFor="newUsername">Username</label>
-              <input className="field" type="text" id="username" value={userData.username} onChange={handleChange} />
+              <input className="rounded-lg" type="text" id="username" value={userData.username} onChange={handleChange} />
             </div>
-            <div className="form-group">
+            <div className="flex flex-col mb-3">
               <label htmlFor="newPassword">Password</label>
-              <input className="field" type="password" id="password" value={userData.password} onChange={handleChange} />
+              <input className="rounded-lg" type="password" id="password" value={userData.password} onChange={handleChange} />
             </div>
-            <div className="form-group">
+            <div className="flex flex-col mb-3">
               <label htmlFor="confirmPass">Confirm Password</label>
-              <input className="field" type="password" id="confirmPass" value={userData.confirmPass} onChange={handleChange} />
+              <input className="rounded-lg" type="password" id="confirmPass" value={userData.confirmPass} onChange={handleChange} />
             </div>
-            <div className="form-group">
+            <div className="flex flex-col mb-3">
               <label htmlFor="newPhone">Phone</label>
-              <input className="field" type="text" id="phone" value={userData.phone} onChange={handleChange} />
+              <input className="rounded-lg" type="text" id="phone" value={userData.phone} onChange={handleChange} />
             </div>
-            <div className="form-group">
+            <div className="flex flex-col mb-3">
               <label htmlFor="newCountry">Country</label>
-              <select className="field" id="country" value={userData.country} onChange={
+              <select className="rounded-lg" id="country" value={userData.country} onChange={
                 (e) => setUserData({
                   ...userData,
                   country: e.target.value,
@@ -277,15 +277,15 @@ const Register: React.FC = () => {
               <option value="ZW">Zimbabwe</option>
             </select>
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn bg-cyan-500 w-full h-10 text-white mt-3 mb-3 transition-colors hover:bg-blue-600">
           Register
         </button>
       </form>
     </div>
       </div >
   <div>
-    <p className='center'>
-      Already have an account? <Link to="/login">Login</Link>
+    <p className='text-center'>
+      Already have an account? <Link to="/login" className='text-cyan-500 hover:text-blue-600 transition-colors'>Login</Link>
     </p>
   </div>
     </div >
