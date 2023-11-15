@@ -3,32 +3,3 @@
   margin: 0;
   padding: 0;
 }
-
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-.content {
-  padding-top: 150px;
-  padding-left: 90px;
-  padding-right: 90px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #ffffff;
-}
-
-@media (max-width: 768px) {
-  .content {
-    width: 100%;
-  }
-}
