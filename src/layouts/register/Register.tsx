@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import UserService from '../../services/UserService';
 import { useNavigate } from 'react-router-dom';
 import RegisterDTO from '../../models/RegisterDTO';
+import "../../App.css"
 
 const Register: React.FC = () => {
   const [userData, setUserData] = useState<RegisterDTO>({

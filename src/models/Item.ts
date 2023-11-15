@@ -1,10 +1,16 @@
 class Item {
-    name: string
+    title: string
     category: string
+    startingPrice: number
+    currentBid: number
+    description: string
 
-    constructor(name: string, category: string) {
-        this.name = name;
+    constructor(title: string, category: string, startingPrice: number, currentBid: number, description: string) {
+        this.title = title;
         this.category = category;
+        this.startingPrice = startingPrice;
+        this.currentBid = currentBid;
+        this.description = description;
     }
 }
 

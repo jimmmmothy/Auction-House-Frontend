@@ -3,6 +3,7 @@ import '../register/Register.css';
 import { Link } from 'react-router-dom';
 import UserService from '../../services/UserService';
 import { useNavigate } from 'react-router-dom';
+import "../../App.css"
 
 const Login: React.FC = () => {
     const [userData, setUserData] = useState<LoginDTO>({

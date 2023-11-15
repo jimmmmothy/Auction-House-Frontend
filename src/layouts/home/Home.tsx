@@ -3,6 +3,7 @@ import Item from '../../models/Item';
 import './Home.css'
 import ItemService from '../../services/ItemService';
 import Loader from '../../components/loader/Loader';
+import "../../App.css"
 
 let hasLoaded = false;
 
@@ -17,20 +18,19 @@ export default function ItemList() {
     }, []);
 
     return hasLoaded ? (
-        <div>
+        <div className='container'>
             <h1>Items</h1>
             <ul className='content-body no-indent'>
                 {items.map((item, index) => (
                     <li className='sales-item' key={index}>
-                        <p className='bold'>{item.name}</p>
+                        <p className='bold'>{item.title}</p>
                         <p>Category: {item.category}</p>
                     </li>
                 ))}
             </ul>
         </div>
     ) : (
-        <div>
-            <h1>Items</h1>
+        <div className='container flex justify-center bg-transparent h-100vh items-center'>
             <Loader></Loader>
         </div>
     );

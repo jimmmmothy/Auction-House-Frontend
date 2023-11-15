@@ -5,17 +5,19 @@ import './App.css'
 import Home from './layouts/home/Home.tsx'
 import '../dist/output.css'
 import Login from './layouts/login/Login.tsx';
+import ItemPage from './layouts/items/ItemPage.tsx';
 
 function App() {
   return (
     <>
       <NavBar />
       <Router>
-        <div className='content'>
+        <div className='h-100vh'>
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/register' element={<Register />} />
             <Route path='/login' element={<Login />} />
+            <Route path="/items/:id" element={<ItemPage/>} />
           </Routes>
         </div>
       </Router>

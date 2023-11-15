@@ -36,7 +36,7 @@ function NavBar() {
                     <>
                         <Menu as="li" className="nav-item">
                             <div>
-                                <Menu.Button className="inline-flex w-full justify-center rounded-md px-4 py-2 text-sm font-medium text-black">
+                                <Menu.Button className="inline-flex w-full justify-center rounded-md px-4 py-2 font-medium text-black">
                                     Profile
                                 </Menu.Button>
                             </div>

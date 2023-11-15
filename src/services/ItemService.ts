@@ -7,8 +7,13 @@ function GetAllItems() {
     return axios.get(HOST_NAME)
 };
 
+function GetItem(id: number) {
+    return axios.get(`${HOST_NAME}/${id}`);
+}
+
 const ItemService = {
-    GetAllItems
+    GetAllItems,
+    GetItem
 }
 
 export default ItemService
