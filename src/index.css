@@ -22,4 +22,5 @@ body {
   margin-right: 30px;
   min-width: 220px;
   min-height: 100vh;
+  height: fit-content
 }

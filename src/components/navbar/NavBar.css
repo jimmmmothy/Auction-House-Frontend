@@ -2,7 +2,7 @@
     background-color: #ffffff;
     display: flex;
     color: black;
-    border-bottom: 2px solid #53d2f2;
+    /* border-bottom: 2px solid #53d2f2; */
     padding: 10px;
     padding-left: 120px;
     padding-right: 120px;
@@ -11,6 +11,17 @@
     position: fixed;
     width: 100vw;
     box-sizing: border-box;
+    z-index: 1;
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 5px; /* Adjust thickness as needed */
+        background: linear-gradient(to right, yellow, cyan); /* Gradient colors */
+      }
 }
 
 .navbar-nav {

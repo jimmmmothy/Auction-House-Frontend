@@ -46,7 +46,7 @@ const Register: React.FC = () => {
   }
 
   return (
-    <div className="container">
+    <div className="container bg-transparent">
       <div className="row">
         <div>
           <h2 className='font-bold text-xl mb-5'>Register a new account!</h2>

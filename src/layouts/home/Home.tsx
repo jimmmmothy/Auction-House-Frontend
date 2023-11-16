@@ -4,6 +4,7 @@ import './Home.css'
 import ItemService from '../../services/ItemService';
 import Loader from '../../components/loader/Loader';
 import "../../App.css"
+import ItemBlock from '../../components/homePage/itemBlock';
 
 let hasLoaded = false;
 
@@ -18,16 +19,18 @@ export default function ItemList() {
     }, []);
 
     return hasLoaded ? (
-        <div className='container'>
-            <h1>Items</h1>
-            <ul className='content-body no-indent'>
+        <div className='container bg-transparent flex flex-col'>
+            <h1 className='text-5xl mx-auto'>Browse our items!</h1>
+            <ul className='pl-0 flex flex-wrap lg:grid grid-cols-3'>
                 {items.map((item, index) => (
-                    <li className='sales-item' key={index}>
-                        <p className='bold'>{item.title}</p>
-                        <p>Category: {item.category}</p>
-                    </li>
+                    // <li className='sales-item' key={index}>
+                    //     <p className='bold'>{item.title}</p>
+                    //     <p>Category: {item.category}</p>
+                    // </li>
+                    <ItemBlock id={item.id} title={item.title} category={item.category} startingPrice={item.startingPrice} currentBid={item.currentBid} description={item.description}></ItemBlock>
                 ))}
             </ul>
+            
         </div>
     ) : (
         <div className='container flex justify-center bg-transparent h-100vh items-center'>

@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import "../../App.css"
 import Loader from "../../components/loader/Loader";
 import { Button } from "@material-tailwind/react";
-import FavoriteIcon from "../../assets/favorite.svg";
 
 type RouterParams = {
     id: string;
@@ -15,6 +14,7 @@ let hasLoaded = false;
 
 const ItemPage: React.FC = () => {
     const [item, setItem] = useState<Item>({
+        id: 0,
         title: '',
         category: '',
         startingPrice: 0,

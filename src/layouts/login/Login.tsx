@@ -33,10 +33,10 @@ const Login: React.FC = () => {
     }
 
     return (
-        <div className="container">
+        <div className="container bg-transparent">
             <div className="row">
                 <div>
-                    <h2 className='font-bold text-xl mb-5'>Register a new account!</h2>
+                    <h2 className='font-bold text-xl mb-5'>Login to your account!</h2>
                     <form onSubmit={handleSubmit}>
                         <div className="flex flex-col mb-3">
                             <label htmlFor="email">Email</label>
@@ -54,7 +54,7 @@ const Login: React.FC = () => {
             </div >
             <div>
                 <p className='text-center'>
-                    Already have an account? <Link to="/login" className='text-cyan-500 hover:text-blue-600 transition-colors'>Login</Link>
+                    Don't have an account? <Link to="/register" className='text-cyan-500 hover:text-blue-600 transition-colors'>Register</Link>
                 </p>
             </div>
         </div >

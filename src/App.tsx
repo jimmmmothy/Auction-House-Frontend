@@ -12,7 +12,7 @@ function App() {
     <>
       <NavBar />
       <Router>
-        <div className='h-100vh'>
+        <div className='h-full'>
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/register' element={<Register />} />

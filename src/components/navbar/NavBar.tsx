@@ -36,7 +36,7 @@ function NavBar() {
                     <>
                         <Menu as="li" className="nav-item">
                             <div>
-                                <Menu.Button className="inline-flex w-full justify-center rounded-md px-4 py-2 font-medium text-black">
+                                <Menu.Button className="inline-flex w-full justify-center rounded-md px-4 py-2 font-medium text-black bg-yellow-200">
                                     Profile
                                 </Menu.Button>
                             </div>
@@ -49,7 +49,7 @@ function NavBar() {
                                 leaveFrom="transform opacity-100 scale-100"
                                 leaveTo="transform opacity-0 scale-95"
                             >
-                                <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
+                                <Menu.Items className="absolute right-0 mt-5 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
                                     <div className="px-1 py-1 ">
                                         <Menu.Item>
                                             {({ active }) => (
@@ -88,12 +88,16 @@ function NavBar() {
                     </>
                 ) : (
                     <>
-                        <li className="nav-item">
-                            <a href="/register" className="nav-link">Register</a>
-                        </li>
-                        <li className="nav-item">
-                            <a href="/login" className="nav-link">Login</a>
-                        </li>
+                        <Menu as="li" className="nav-item">
+                            <Menu.Button className="inline-flex w-full justify-center rounded-md font-medium text-black bg-cyan-200">
+                                <a href="/register" className="w-full h-full nav-link px-4 py-2">Register</a>
+                            </Menu.Button>
+                        </Menu>
+                        <Menu as="li" className="nav-item">
+                            <Menu.Button className="inline-flex w-full justify-center rounded-md font-medium text-black bg-cyan-200">
+                                <a href="/login" className="nav-link px-4 py-2">Login</a>
+                            </Menu.Button>
+                        </Menu>
                     </>
                 )}
             </ul>
