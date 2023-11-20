@@ -42,11 +42,14 @@ const Register: React.FC = () => {
         localStorage.setItem("jwt", response.data);
         navigate("/");
         window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }
 
   return (
-    <div className="container bg-transparent">
+    <div className="container max-w-full bg-transparent">
       <div className="row">
         <div>
           <h2 className='font-bold text-xl mb-5'>Register a new account!</h2>

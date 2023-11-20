@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Item from "../../models/Item";
+import Item from "../../models/ItemRequest";
 import ItemService from "../../services/ItemService";
 import { useParams } from "react-router-dom";
 import "../../App.css"

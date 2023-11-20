@@ -5,7 +5,8 @@ import './App.css'
 import Home from './layouts/home/Home.tsx'
 import '../dist/output.css'
 import Login from './layouts/login/Login.tsx';
-import ItemPage from './layouts/items/ItemPage.tsx';
+import ItemPage from './layouts/items/ItemDetails.tsx';
+import ItemPost from './layouts/items/itemPost.tsx';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path='/register' element={<Register />} />
             <Route path='/login' element={<Login />} />
             <Route path="/items/:id" element={<ItemPage/>} />
+            <Route path='/post' element={<ItemPost />} />
           </Routes>
         </div>
       </Router>
