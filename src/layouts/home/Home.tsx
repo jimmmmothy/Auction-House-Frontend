@@ -26,7 +26,7 @@ export default function ItemList() {
         <>
             <h1 className='absolute text-5xl mx-auto z-[1] top-[249px] w-full text-center text-white'>Browse</h1>
             <img className='absolute top-[74px] w-full h-[350px]' src={WatchesBackground} alt="Background" />
-            <div className='container max-w-full absolute top-[424px] justify-center bg-transparent h-f w-full items-center'>
+            <div className='container max-w-full absolute top-[424px] justify-center bg-transparent h-full w-full items-center'>
                 <ul className='pl-0 flex flex-wrap lg:grid grid-cols-3'>
                     {items.map((item, index) => (
                         <ItemBlock id={item.id} title={item.title} category={item.category} startingPrice={item.startingPrice} currentBid={item.currentBid} description={item.description} key={item.id}></ItemBlock>
@@ -39,7 +39,7 @@ export default function ItemList() {
         <>
             <h1 className='absolute text-5xl mx-auto z-[1] top-[249px] w-full text-center text-white'>Browse</h1>
             <img className='absolute top-[74px] w-full h-[350px]' src={WatchesBackground} alt="Background" />
-            <div className='container max-w-full absolute top-[424px] justify-center bg-transparent h-100vh w-full items-center'>
+            <div className='container max-w-full absolute top-[424px] justify-center bg-transparent h-full w-full items-top flex'>
                 <Loader></Loader>
             </div>
         </>
