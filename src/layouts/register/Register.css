@@ -28,6 +28,24 @@ label {
     align-self: flex-start;
 }
 
+@keyframes expandMessage {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.expand {
+    animation: expandMessage 0.5s ease-in-out;
+}
+
 .field {
     background-color: white;
     border: 1px solid #ccc;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Register.css';
 import { Link } from 'react-router-dom';
 import UserService from '../../services/UserService';
@@ -17,6 +17,33 @@ const Register: React.FC = () => {
     phone: '',
     country: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  interface IsError {
+    isError: boolean,
+    message: string
+  }
+  const [isError, setIsError] = useState<IsError>({
+    isError: false,
+    message: ""
+  });
+
+  useEffect(() => {
+    const token = localStorage.getItem("jwt");
+    if (token) navigate("/");
+
+    if (isSubmitting) {
+      const errorDiv = document.getElementById('error');
+      if (errorDiv) {
+        errorDiv.classList.add('expand');
+        setTimeout(() => {
+          errorDiv.classList.remove('expand');
+        }, 500);
+      }
+
+      setIsSubmitting(false);
+    }
+  }, [isSubmitting]);
 
   const navigate = useNavigate();
 
@@ -31,9 +58,26 @@ const Register: React.FC = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
+    setIsSubmitting(true);
+
+    if (!userData.email || !userData.firstName ||
+      !userData.lastName || !userData.username ||
+      !userData.password || !userData.confirmPass ||
+      !userData.phone || !userData.country) {
+      setIsError({
+        isError: true,
+        message: "Please fill in all missing fields"
+      });
+
+      return;
+    }
+
     if (userData.password !== userData.confirmPass) {
       // Password and confirmPassword don't match, show an error message.
-      alert('Passwords do not match.');
+      setIsError({
+        isError: true,
+        message: "Passwords do not match"
+      })
       return;
     }
 
@@ -44,8 +88,18 @@ const Register: React.FC = () => {
         window.location.reload();
       })
       .catch((error) => {
-        console.log(error);
+        if (error.response.status === 409) {
+          setIsSubmitting(true);
+          setIsError({
+            isError: true,
+            message: error.response.data
+          });
+
+          return;
+        }
       });
+
+    setIsSubmitting(false);
   }
 
   return (
@@ -287,6 +341,7 @@ const Register: React.FC = () => {
                 <option value="ZW">Zimbabwe</option>
               </select>
             </div>
+            <div id='error' className={isError.isError ? 'text-red-600 text-center expand' : 'hidden'}>{isError.message}</div>
             <button type="submit" className="btn bg-cyan-500 w-full h-10 text-white mt-3 mb-3 transition-colors hover:bg-blue-600">
               Register
             </button>

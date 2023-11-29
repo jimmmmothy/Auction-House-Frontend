@@ -38,7 +38,7 @@ function NavBar() {
                     </button>
                 </div>
             </div>
-            <div className="self-end min-w-full mt-5 lg:hidden">   
+            <div className={`self-end min-w-full mt-5 lg:hidden ${isMobileMenuOpen ? 'block' : 'hidden' }`}>   
                 <div className={`flex flex-col space-y-1 items-center ${isMobileMenuOpen ? 'flex' : 'hidden'}`}>
                     {/* Navigation links */}
                     <a href="/categories" className="">Categories</a>
@@ -99,12 +99,12 @@ function NavBar() {
                         </>
                     ) : (
                         <>
-                            <Menu as="li" className="nav-item">
+                            <Menu as="div" className="nav-item">
                                 <Menu.Button className="inline-flex w-full justify-center rounded-md font-medium text-black bg-cyan-200">
                                     <a href="/register" className="w-full h-full nav-link px-4 py-2">Register</a>
                                 </Menu.Button>
                             </Menu>
-                            <Menu as="li" className="nav-item">
+                            <Menu as="div" className="nav-item">
                                 <Menu.Button className="inline-flex w-full justify-center rounded-md font-medium text-black bg-cyan-200">
                                     <a href="/login" className="nav-link px-4 py-2">Login</a>
                                 </Menu.Button>
@@ -122,7 +122,7 @@ function NavBar() {
                     <a href="/categories" className="nav-link">Categories</a>
                     <a href="/collections" className="nav-link">Collections</a>
                 </div>
-                <div className="self-center">
+                <div className="flex lg:space-x-3 self-center">
                     {isLoggedIn ? (
                         <>
                             <Menu as="div" className="nav-item">
@@ -179,12 +179,12 @@ function NavBar() {
                         </>
                     ) : (
                         <>
-                            <Menu as="li" className="nav-item">
+                            <Menu as="div" className="nav-item">
                                 <Menu.Button className="inline-flex w-full justify-center rounded-md font-medium text-black bg-cyan-200">
                                     <a href="/register" className="w-full h-full nav-link px-4 py-2">Register</a>
                                 </Menu.Button>
                             </Menu>
-                            <Menu as="li" className="nav-item">
+                            <Menu as="div" className="nav-item">
                                 <Menu.Button className="inline-flex w-full justify-center rounded-md font-medium text-black bg-cyan-200">
                                     <a href="/login" className="nav-link px-4 py-2">Login</a>
                                 </Menu.Button>

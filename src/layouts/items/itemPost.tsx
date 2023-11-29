@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChangeEvent, FormEvent } from "react";
 import ItemService from "../../services/ItemService";
 import Item from "../../models/ItemRequest";
+import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 interface Field {
     key: string;
@@ -9,6 +11,9 @@ interface Field {
 }
 
 function ItemPost() {
+    const navigate = useNavigate();
+    const [userId, setUserId] = useState<number>(0);
+
     const [item, setItem] = useState({
         id: 0,
         title: "",
@@ -16,7 +21,19 @@ function ItemPost() {
         startingPrice: 0,
         currentBid: 0,
         description: {} as Object,
+        postedByUserId: 0
     });
+
+    useEffect(() => {
+        const token = localStorage.getItem("jwt");
+        if (token === null) {
+            navigate("/login")
+        } else {
+            const decodedToken = jwtDecode(token);
+            if (decodedToken.sub !== undefined) 
+                setUserId(parseInt(decodedToken.sub));
+        }
+    }, [item])
 
     const [fields, setFields] = useState<Field[]>([{ key: "", value: "" }]);
 
@@ -57,8 +74,6 @@ function ItemPost() {
                 })
             }
         }
-
-        console.log(item);
     };
 
     const handleAddField = () => {
@@ -75,7 +90,7 @@ function ItemPost() {
         e.preventDefault();
 
         let description = JSON.stringify(item.description);
-        let sendItem = new Item(0, item.title, item.category, item.startingPrice, item.currentBid, description);
+        let sendItem = new Item(0, item.title, item.category, item.startingPrice, item.currentBid, description, userId);
 
         let responseData = ItemService.PostItem(sendItem);
         console.log(responseData);
