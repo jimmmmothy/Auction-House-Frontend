@@ -22,10 +22,25 @@ function PostItem(item: Item) {
         });
 }
 
+function DeleteItem(itemId: number) {
+    axios.delete(`${HOST_NAME}/${itemId}`, {
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem("jwt")}`
+        }
+    })
+    .then(response => {
+        console.log(response.data);
+    })
+    .catch(error => {
+        console.log(error)
+    })
+}
+
 const ItemService = {
     GetAllItems,
     GetItem,
-    PostItem
+    PostItem,
+    DeleteItem
 }
 
 export default ItemService
