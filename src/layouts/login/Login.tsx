@@ -64,27 +64,39 @@ const Login: React.FC = () => {
             return;
         }
 
-        UserService.AuthenticateUser(userData).then(
-            response => {
+        UserService.AuthenticateUser(userData)
+            .then(response => {
+                console.log("here")
                 localStorage.setItem("jwt", response.data);
                 navigate("/");
                 window.location.reload();
             })
             .catch((error) => {
-                setIsSubmitting(true);
-                setIsError({
-                    isError: true,
-                    message: error.response.data
-                });
+                if (error.response !== undefined) {
+                    setIsSubmitting(true);
+                    setIsError({
+                        isError: true,
+                        message: error.response.data
+                    });
+                } else {
+                    setIsSubmitting(true);
+                    setIsError({
+                        isError: true,
+                        message: "Network error"
+                    });
+                }
 
                 return;
             });
+
+
+
 
         setIsSubmitting(false);
     }
 
     return (
-        <div className="container max-w-full bg-transparent min-h-screen">
+        <div className="container max-w-full bg-transparent min-h-screen font-josefin">
             <div className="row">
                 <div>
                     <h2 className='font-bold text-xl mb-5'>Login to your account!</h2>
