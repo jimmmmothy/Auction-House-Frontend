@@ -22,6 +22,7 @@ function App() {
             <Route path="/items/:id" element={<ItemPage/>} />
             <Route path='/post' element={<ItemPost />} />
             <Route path='/profile' element={<ProfilePage />} />
+            <Route path='/edit/:id' element={<ItemPost/>} />
           </Routes>
         </div>
       </Router>

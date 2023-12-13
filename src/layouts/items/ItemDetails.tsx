@@ -4,7 +4,6 @@ import ItemService from "../../services/ItemService";
 import { useParams } from "react-router-dom";
 import "../../App.css"
 import Loader from "../../components/loader/Loader";
-import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import CheckAuth from "../../services/CheckAuth";
 import BidService from "../../services/BidService";
@@ -38,23 +37,19 @@ const ItemPage: React.FC = () => {
         const id = params.id!;
         let parsedId: number = parseInt(id, 10);
 
-        ItemService.GetItem(parsedId).then(response => {
-            setItem(response.data);
-            setBidValue(response.data.currentBid > response.data.startingPrice ? response.data.currentBid : response.data.startingPrice);
+        ItemService.GetItem(parsedId).then(data => {
+            setItem(data);
+            setBidValue(data.currentBid > data.startingPrice ? data.currentBid : data.startingPrice);
 
             //checks if user is creator of the item
-            let creatorId = response.data.postedByUserId;
-            const token = localStorage.getItem("jwt");
-            if (token !== null) {
-                const decodedToken = jwtDecode(token);
-                if (decodedToken.sub == creatorId)
-                    setIsCreator(true);
+            let creatorId = data.postedByUserId;
+            setLoggedInUser(CheckAuth.GetLoggedInUserId())
 
-                setLoggedInUser(parseInt(decodedToken.sub ?? ""));
-            }
+            if (CheckAuth.GetLoggedInUserId() === creatorId)
+                setIsCreator(true);
 
             //description formatting
-            let sliced: string = response.data.description.slice(1, item.description.length - 1);
+            let sliced: string = data.description.slice(1, item.description.length - 1);
 
             let replaced = sliced.replace(new RegExp("\\\\", 'g'), "");
             setDescription(JSON.parse(replaced));
@@ -80,13 +75,17 @@ const ItemPage: React.FC = () => {
         navigate('/');
     }
 
+    const handleUpdate : React.MouseEventHandler<HTMLButtonElement> = (_: React.MouseEvent) => {
+        navigate(`/edit/${item.id}`);
+    }
+
     const handlePlaceBid = async () => {
-        if (!CheckAuth())
+        if (!CheckAuth.CheckAuthenticated())
             return;
 
         if (loggedInUser !== undefined) {
             await BidService.PostBid(new BidDTO(item.id, loggedInUser, bidValue));
-            
+
             location.reload();
         }
     }
@@ -141,9 +140,9 @@ const ItemPage: React.FC = () => {
                     ))}
                 </ul>
 
-                <button className={`${isCreator ? 'bg-emerald-500 w-1/3 self-end py-2 lg:py-3 mb-4' : 'hidden'}`}>Edit</button>
+                <button className={`${isCreator ? 'bg-emerald-500 w-1/3 self-end py-2 lg:py-3 mb-4' : 'hidden'}`} onClick={handleUpdate}>Edit</button>
                 <button className={`${isCreator ? 'bg-red-500 w-1/3 self-end py-2 lg:py-3 mb-4' : 'hidden'}`} onClick={handleDelete}>Delete</button>
-                <div className="flex">
+                <div className={`${isCreator ? 'hidden' : 'flex'}`}>
                     <span>Min bid</span>
                     <input
                         type="number"
@@ -157,7 +156,7 @@ const ItemPage: React.FC = () => {
                     <span>Max bid</span>
                 </div>
                 <input
-                    type="range" className="mb-3"
+                    type="range" className={`${isCreator ? 'hidden' : 'mb-3'}`}
                     min={item.startingPrice} max={item.startingPrice + 500}
                     step={10}
                     value={bidValue}

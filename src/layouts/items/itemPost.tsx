@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { ChangeEvent, FormEvent } from "react";
 import ItemService from "../../services/ItemService";
 import Item from "../../models/ItemRequest";
-import { useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
+import { useNavigate, useParams } from "react-router-dom";
+import CheckAuth from "../../services/CheckAuth";
 
 interface Field {
     key: string;
@@ -13,7 +13,9 @@ interface Field {
 function ItemPost() {
     const navigate = useNavigate();
     const [userId, setUserId] = useState<number>(0);
-
+    const param = useParams();
+    const [isEdit, setIsEdit] = useState<boolean>(false);
+    const [fields, setFields] = useState<Field[]>([{ key: "", value: "" }]);
     const [item, setItem] = useState({
         id: 0,
         title: "",
@@ -25,17 +27,34 @@ function ItemPost() {
     });
 
     useEffect(() => {
-        const token = localStorage.getItem("jwt");
-        if (token === null) {
-            navigate("/login")
-        } else {
-            const decodedToken = jwtDecode(token);
-            if (decodedToken.sub !== undefined) 
-                setUserId(parseInt(decodedToken.sub));
+        const loggedIn = CheckAuth.GetLoggedInUserId();
+        if (loggedIn === -1) {
+            navigate('/login')
         }
-    }, [item])
+        else {
+            setUserId(loggedIn);
+        }
 
-    const [fields, setFields] = useState<Field[]>([{ key: "", value: "" }]);
+        if (param.id) {
+            ItemService.GetItem(parseInt(param.id))
+                .then(data => {
+                    let json = JSON.parse(data.description);
+                    let parsed = JSON.parse(json);
+                    data.description = parsed;
+                    setItem(data);
+
+                    let fields: Field[] = [];
+                    for (const key in parsed) {
+                        if (Object.prototype.hasOwnProperty.call(parsed, key)) {
+                            const element = parsed[key];
+                            fields.push({ key: key, value: element });
+                        }
+                    }
+                    setFields(fields);
+                })
+                .then(() => setIsEdit(true));
+        }
+    }, [])
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>, index: number | undefined, fieldName: 'key' | 'value' | undefined) => {
         const { id, value } = e.target;
@@ -55,6 +74,8 @@ function ItemPost() {
                     }
                 }
             }
+
+            console.log(description);
 
             setItem({
                 ...item,
@@ -90,10 +111,18 @@ function ItemPost() {
         e.preventDefault();
 
         let description = JSON.stringify(item.description);
+        console.log(description);
         let sendItem = new Item(0, item.title, item.category, item.startingPrice, item.currentBid, description, userId);
 
-        let responseData = ItemService.PostItem(sendItem);
-        console.log(responseData);
+        if (!isEdit) {
+            ItemService.PostItem(sendItem);
+            navigate('/')
+        }
+        else
+            if (param.id) {
+                ItemService.EditItem(parseInt(param.id), sendItem);
+                navigate(`/items/${param.id}`)
+            }
     };
 
     return (
