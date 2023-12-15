@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Client } from '@stomp/stompjs'
 import Item from "../../models/ItemRequest";
 import ItemService from "../../services/ItemService";
 import { useParams } from "react-router-dom";
@@ -8,6 +9,9 @@ import { useNavigate } from "react-router-dom";
 import CheckAuth from "../../services/CheckAuth";
 import BidService from "../../services/BidService";
 import BidDTO from "../../models/BidDTO";
+import WebSocketService from "../../services/WebSocketService";
+import PublicNotification from "../../models/PublicNotification";
+import StompClient from "../../services/StompClient";
 
 type RouterParams = {
     id: string;
@@ -32,10 +36,36 @@ const ItemPage: React.FC = () => {
     const [bidValue, setBidValue] = useState(0);
     const [loggedInUser, setLoggedInUser] = useState<number | undefined>();
     const [top3Bids, setTop3Bids] = useState<BidDTO[]>();
+    const [client, setClient] = useState<Client>();
 
     useEffect(() => {
         const id = params.id!;
         let parsedId: number = parseInt(id, 10);
+
+        BidService.GetBidsFromUser(CheckAuth.GetLoggedInUserId())
+            .then((bidsFromUser) => {
+                let client = StompClient.getStompClient();
+
+                if (client) {
+                    setClient(client);
+                }
+                else {
+                    if (bidsFromUser) {
+                        WebSocketService.setupStompClient(CheckAuth.GetLoggedInUserId(), bidsFromUser)
+                            .then(res => {
+                                StompClient.setStompClient(res);
+                                setClient(res);
+                            });
+                    }
+                    else {
+                        WebSocketService.setupStompClient(CheckAuth.GetLoggedInUserId())
+                            .then(res => {
+                                StompClient.setStompClient(res);
+                                setClient(res);
+                            });
+                    }
+                }
+            });
 
         ItemService.GetItem(parsedId).then(data => {
             setItem(data);
@@ -75,7 +105,7 @@ const ItemPage: React.FC = () => {
         navigate('/');
     }
 
-    const handleUpdate : React.MouseEventHandler<HTMLButtonElement> = (_: React.MouseEvent) => {
+    const handleUpdate: React.MouseEventHandler<HTMLButtonElement> = (_: React.MouseEvent) => {
         navigate(`/edit/${item.id}`);
     }
 
@@ -84,9 +114,16 @@ const ItemPage: React.FC = () => {
             return;
 
         if (loggedInUser !== undefined) {
-            await BidService.PostBid(new BidDTO(item.id, loggedInUser, bidValue));
+            if (client) {
+                await BidService.PostBid(new BidDTO(item.id, loggedInUser, bidValue));
 
-            location.reload();
+                WebSocketService.sendNotification(client, new PublicNotification(item.id, `A bid has been placed on ${item.title}`));
+            }
+            else {
+                alert('Something went wrong, please try again later');
+            }
+
+            // location.reload();
         }
     }
 

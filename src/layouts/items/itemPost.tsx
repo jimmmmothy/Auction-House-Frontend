@@ -38,6 +38,10 @@ function ItemPost() {
         if (param.id) {
             ItemService.GetItem(parseInt(param.id))
                 .then(data => {
+                    if (loggedIn !== data.postedByUserId) {
+                        alert('You are not authorized to make changes to this item');
+                        navigate('/');
+                    }
                     let json = JSON.parse(data.description);
                     let parsed = JSON.parse(json);
                     data.description = parsed;

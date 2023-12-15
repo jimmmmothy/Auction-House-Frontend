@@ -20,13 +20,25 @@ async function GetTop3Bids(itemId: number) : Promise<any> {
     return axios.get(`${HOST_NAME}/${itemId}`)
         .then(res => { return res })
         .catch(err => {
-            console.log(err)
+            console.log(err);
+        });
+}
+
+async function GetBidsFromUser(userId: number) : Promise<number[]> {
+    return axios.get(`${HOST_NAME}/users/${userId}`)
+        .then(res => { 
+            return res.data 
+        })
+        .catch(err => {
+            console.log(err);
+            return;
         });
 }
 
 const BidService = {
     PostBid,
-    GetTop3Bids
+    GetTop3Bids,
+    GetBidsFromUser
 }
 
 export default BidService;
