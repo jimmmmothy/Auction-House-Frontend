@@ -1,7 +1,6 @@
 import { Client, IMessage } from '@stomp/stompjs'
 import { v4 as uuidv4 } from 'uuid';
 import Notification from '../models/PublicNotification';
-import StompClient from './StompClient';
 
 let notificationCallback: ((data: any) => void) | null = null;
 

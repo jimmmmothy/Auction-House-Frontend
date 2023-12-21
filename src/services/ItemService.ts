@@ -5,8 +5,12 @@ import Item from '../models/ItemRequest';
 const HOST_NAME = `${LOCALHOST}/items`;
 
 async function GetAllItems() : Promise<Item[]> {
-    return axios.get(HOST_NAME)
+    return axios.get(HOST_NAME).then(res => res.data as Item[])
 };
+
+async function GetItemsByTitle(search: string) : Promise<Item[]> {
+    return axios.get(`${HOST_NAME}?title=${search}`).then(res => res.data as Item[]);
+}
 
 async function GetItem(id: number) : Promise<Item> {
     return axios.get(`${HOST_NAME}/${id}`)
@@ -51,6 +55,7 @@ async function DeleteItem(itemId: number) : Promise<void> {
 
 const ItemService = {
     GetAllItems,
+    GetItemsByTitle,
     GetItem,
     PostItem,
     EditItem,

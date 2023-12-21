@@ -15,6 +15,7 @@ import BidService from './services/BidService.ts';
 import { useEffect } from 'react';
 import WebSocketService from './services/WebSocketService.ts';
 import StompClient from './services/StompClient.ts';
+import Admin from './layouts/admin.tsx';
 
 function App() {
   useEffect(() => {
@@ -41,7 +42,6 @@ function App() {
 
   useEffect(() => {
     WebSocketService.setNotificationCallback((data) => {
-      // Render a notification using toast or your notification component
       toast(JSON.parse(data.body).text);
     });
   }, [])
@@ -60,6 +60,7 @@ function App() {
             <Route path='/post' element={<ItemPost />} />
             <Route path='/profile' element={<ProfilePage />} />
             <Route path='/edit/:id' element={<ItemPost />} />
+            <Route path='/admin' element={<Admin/>} />
           </Routes>
         </div>
       </Router>

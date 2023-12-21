@@ -24,6 +24,7 @@ function NavBar() {
             const currentTime = Date.now();
             if (currentTime > expiresAt) {
                 localStorage.removeItem('jwt');
+                window.location.assign('/login')
                 alert("Your session has expired, please log in if you want to continue.");
             }
         }

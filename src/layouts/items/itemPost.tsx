@@ -119,13 +119,11 @@ function ItemPost() {
         let sendItem = new Item(0, item.title, item.category, item.startingPrice, item.currentBid, description, userId);
 
         if (!isEdit) {
-            ItemService.PostItem(sendItem);
-            navigate('/')
+            ItemService.PostItem(sendItem).then(res => navigate(`/items/${param.id}`));
         }
         else
             if (param.id) {
-                ItemService.EditItem(parseInt(param.id), sendItem);
-                navigate(`/items/${param.id}`)
+                ItemService.EditItem(parseInt(param.id), sendItem).then(res => navigate(`/items/${param.id}`));
             }
     };
 
