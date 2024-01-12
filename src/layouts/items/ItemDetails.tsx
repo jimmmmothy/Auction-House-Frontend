@@ -12,6 +12,7 @@ import BidDTO from "../../models/BidDTO";
 import WebSocketService from "../../services/WebSocketService";
 import PublicNotification from "../../models/PublicNotification";
 import StompClient from "../../services/StompClient";
+import ImageCarousel from "../../components/ImageCarousel";
 
 type RouterParams = {
     id: string;
@@ -27,7 +28,8 @@ const ItemPage: React.FC = () => {
         startingPrice: 0,
         currentBid: 0,
         description: '',
-        postedByUserId: 0
+        postedByUserId: 0,
+        imageURLs: ''
     });
     const params = useParams<RouterParams>();
     const [description, setDescription] = useState<any>('');
@@ -132,7 +134,10 @@ const ItemPage: React.FC = () => {
         <div className="container min-w-full px-4 md:px-10 pt-28 pb-4 md:pb-10 min-h-screen bg-transparent md:flex space-x-20">
             <div className="flex flex-col flex-grow">
                 <div className="flex-grow flex space-x-10">
-                    <div className="bg-orange-200 w-[200px] h-[200px] md:w-[400px] md:h-[400px] mb-10 border-2 border-black border-opacity-20 mr-auto">image placeholder</div>
+                    {/* <div className="bg-orange-200 mb-10 border-2 border-black border-opacity-20 mr-auto">
+                        <img src={item.imageURLs.split(',')[0]} alt="" className="w-full h-full object-cover" />
+                    </div> */}
+                    <ImageCarousel imageURLs={item.imageURLs}></ImageCarousel>
                     <div className="flex flex-col text-right">
                         <h1 className="text-lg md:text-2xl font-bold mb-5 uppercase">{item.title}</h1>
                         <p className="mb-10">{item.category}</p>

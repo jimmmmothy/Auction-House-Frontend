@@ -4,6 +4,7 @@ import ItemService from "../../services/ItemService";
 import Item from "../../models/ItemRequest";
 import { useNavigate, useParams } from "react-router-dom";
 import CheckAuth from "../../services/CheckAuth";
+import ImageService from "../../services/ImageService";
 
 interface Field {
     key: string;
@@ -23,8 +24,10 @@ function ItemPost() {
         startingPrice: 0,
         currentBid: 0,
         description: {} as Object,
-        postedByUserId: 0
+        postedByUserId: 0,
+        imageURLs: ""
     });
+    const [fileList, setFiles] = useState<FileList>();
 
     useEffect(() => {
         const loggedIn = CheckAuth.GetLoggedInUserId();
@@ -111,19 +114,33 @@ function ItemPost() {
         setFields(updatedFields);
     }
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const files = e.target.files;
+        if (files) {
+            setFiles(files);
+        }
+    };
+
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         let description = JSON.stringify(item.description);
         console.log(description);
-        let sendItem = new Item(0, item.title, item.category, item.startingPrice, item.currentBid, description, userId);
+        let sendItem = new Item(0, item.title, item.category, item.startingPrice, item.currentBid, description, userId, "");
+        if (fileList)
+                for (let i = 0; i < fileList.length; i++) {
+                    await ImageService.UploadImages(fileList.item(i)!)
+                        .then(res => {
+                            sendItem.imageURLs += res + ",";
+                        })
+                }
 
         if (!isEdit) {
-            ItemService.PostItem(sendItem).then(res => navigate(`/items/${param.id}`));
+            ItemService.PostItem(sendItem).then(res => console.log(res));
         }
         else
             if (param.id) {
-                ItemService.EditItem(parseInt(param.id), sendItem).then(res => navigate(`/items/${param.id}`));
+                ItemService.EditItem(parseInt(param.id), sendItem).then(_ => navigate(`/items/${param.id}`));
             }
     };
 
@@ -194,6 +211,17 @@ function ItemPost() {
                     <button type="button" onClick={handleAddField} className="self-end rounded-full bg-transparent text-white py-2 px-4">
                         <svg width="32px" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15 12L12 12M12 12L9 12M12 12L12 9M12 12L12 15" stroke="#2563eb" strokeWidth="1.5" strokeLinecap="round"></path> <path d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7" stroke="#2563eb" strokeWidth="1.5" strokeLinecap="round"></path> </g></svg>
                     </button>
+                </div>
+                <div>
+                    <label htmlFor="pictures" className="block mb-1">Upload Pictures</label>
+                    <input
+                        type="file"
+                        id="pictures"
+                        name="pictures"
+                        onChange={(e) => handleFileChange(e)}
+                        multiple
+                        className="w-full border rounded p-2"
+                    />
                 </div>
                 <button type="submit" className="bg-cyan-500 transition-colors hover:bg-blue-600 text-white py-2 px-4 rounded">Submit</button>
             </form>

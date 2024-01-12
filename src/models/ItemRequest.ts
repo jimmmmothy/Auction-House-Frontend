@@ -6,8 +6,9 @@ class Item {
     currentBid: number
     description: string
     postedByUserId: number
+    imageURLs: string
 
-    constructor(id: number, title: string, category: string, startingPrice: number, currentBid: number, description: string, postedByUserId: number) {
+    constructor(id: number, title: string, category: string, startingPrice: number, currentBid: number, description: string, postedByUserId: number, imageURLs: string) {
         this.id = id;
         this.title = title;
         this.category = category;
@@ -15,6 +16,7 @@ class Item {
         this.currentBid = currentBid;
         this.description = description;
         this.postedByUserId = postedByUserId;
+        this.imageURLs = imageURLs;
     }
 }
 
