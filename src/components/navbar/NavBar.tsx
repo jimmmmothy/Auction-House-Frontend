@@ -20,7 +20,7 @@ function NavBar() {
         const token = localStorage.getItem("jwt");
         if (token) {
             setIsLoggedIn(true);
-            const decodedToken : Payload = jwtDecode(token);
+            const decodedToken: Payload = jwtDecode(token);
             if (decodedToken.role === "admin") {
                 setIsAdmin(true);
             }
@@ -57,6 +57,9 @@ function NavBar() {
                 <div className={`flex flex-col space-y-1 items-center ${isMobileMenuOpen ? 'flex' : 'hidden'}`}>
                     {/* Navigation links */}
                     <a href="/post" className="nav-link">Post</a>
+                    {isAdmin ?
+                        <a href="/admin" className="nav-link">Admin</a> : ''
+                    }
                     {isLoggedIn ? (
                         <>
                             <MenuLoggedIn></MenuLoggedIn>
@@ -74,10 +77,10 @@ function NavBar() {
                 <div className="space-x-5 mx-auto">
                     <a href="/post" className="nav-link">Post</a>
                 </div>
-                {isAdmin ? 
-                <div>
-                    <a href="/admin" className="nav-link">Admin</a>
-                </div> : ''}
+                {isAdmin ?
+                    <div>
+                        <a href="/admin" className="nav-link">Admin</a>
+                    </div> : ''}
                 <div className="flex lg:space-x-3 self-center">
                     {isLoggedIn ? (
                         <>

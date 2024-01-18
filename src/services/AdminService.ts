@@ -24,7 +24,7 @@ async function GetAllUsers() : Promise<RegisterDTO[] | boolean> {
 }
 
 async function MakeAdmin(userId: number) : Promise<boolean> {
-    return axios.put(`${HOST_NAME}/${userId}`, {
+    return axios.put(`${HOST_NAME}/${userId}`, undefined, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('jwt')}`
         }

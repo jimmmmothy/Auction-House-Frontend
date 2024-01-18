@@ -7,6 +7,7 @@ import CountryOptions from "../../components/CountryOptions";
 import BiddingHistory from "../../components/BiddingHistory";
 
 function ProfilePage() {
+    const [newPass, setNewPass] = useState<string>('');
     const [user, setUser] = useState<RegisterDTO>({
         id: 0,
         firstName: "",
@@ -37,6 +38,9 @@ function ProfilePage() {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(user);
+        if (newPass !== '') {
+            user.password = newPass;
+        }
         UserService.UpdateUserDetails(user)
             .then((response) => {
                 console.log(response);
@@ -47,7 +51,7 @@ function ProfilePage() {
     }
 
     return (
-        <div className="container min-w-full px-4 md:px-10 pt-28 pb-4 md:pb-10 min-h-screen bg-transparent space-x-20">
+        <div className="container min-w-full px-4 md:px-20 pt-28 pb-4 md:pb-20 min-h-screen bg-transparent space-x-20">
             <div className="flex flex-col gap-8">
                 <div className="flex gap-8">
                     {/* Profile Information */}
@@ -109,6 +113,11 @@ function ProfilePage() {
                                     <CountryOptions></CountryOptions>
                                 </select>
                             </div>
+                            <div className="flex flex-col">
+                                <label>Password</label>
+                                <input type="password" placeholder={'Leave empty to keep the same'} value={newPass} className="border-none bg-transparent rounded-lg p-2" onChange={
+                                    (e) => setNewPass(e.target.value)} />
+                            </div>
                             {/* Add more fields as needed */}
                             <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded">
                                 Save Changes
@@ -121,12 +130,6 @@ function ProfilePage() {
                         <h2 className="text-2xl font-bold mb-4">Bidding History</h2>
                     </div> */}
                     <BiddingHistory></BiddingHistory>
-                </div>
-
-                {/* Listings */}
-                <div className="col-span-2">
-                    <h2 className="text-2xl font-bold mb-4">My Listings</h2>
-                    {/* Your listing components or items will go here */}
                 </div>
             </div>
         </div>

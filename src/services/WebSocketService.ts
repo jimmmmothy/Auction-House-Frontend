@@ -12,20 +12,26 @@ const setupStompClient = async (userId: number, bids?: number[][]) => {
         heartbeatOutgoing: 4000
     });
 
+    const subscribedTopics = new Set<string>(); 
+
     stompClient.onConnect = () => {
         stompClient.subscribe(`/user/${userId}/notifications`, (data) => {
             if (notificationCallback) {
-                notificationCallback(data); // Pass the received data to the callback
-              }
+                notificationCallback(data);
+            }
         });
 
         if (bids) {
             bids.forEach(bid => {
-                stompClient.subscribe(`/topic/${bid[2]}/notifications`, (data) => {
-                    if (notificationCallback) {
-                        notificationCallback(data); // Pass the received data to the callback
-                      }
-                });
+                const topic = `/topic/${bid[2]}/notifications`;
+                if (!subscribedTopics.has(topic)) {
+                    stompClient.subscribe(topic, (data) => {
+                        if (notificationCallback) {
+                            notificationCallback(data);
+                        }
+                    });
+                    subscribedTopics.add(topic);
+                }
             });
         }
     };
