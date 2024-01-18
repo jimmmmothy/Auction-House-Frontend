@@ -4,7 +4,7 @@ import Notification from '../models/PublicNotification';
 
 let notificationCallback: ((data: any) => void) | null = null;
 
-const setupStompClient = async (userId: number, itemIds?: number[]) => {
+const setupStompClient = async (userId: number, bids?: number[][]) => {
     const stompClient = new Client({
         brokerURL: 'ws://localhost:8080/ws',
         reconnectDelay: 5000,
@@ -19,9 +19,9 @@ const setupStompClient = async (userId: number, itemIds?: number[]) => {
               }
         });
 
-        if (itemIds) {
-            itemIds.forEach(itemId => {
-                stompClient.subscribe(`/topic/${itemId}/notifications`, (data) => {
+        if (bids) {
+            bids.forEach(bid => {
+                stompClient.subscribe(`/topic/${bid[2]}/notifications`, (data) => {
                     if (notificationCallback) {
                         notificationCallback(data); // Pass the received data to the callback
                       }

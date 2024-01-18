@@ -24,10 +24,10 @@ async function GetTop3Bids(itemId: number) : Promise<any> {
         });
 }
 
-async function GetBidsFromUser(userId: number) : Promise<number[]> {
+async function GetBidsFromUser(userId: number) : Promise<[][]> {
     return axios.get(`${HOST_NAME}/users/${userId}`)
         .then(res => { 
-            return res.data 
+            return res.data;
         })
         .catch(err => {
             console.log(err);

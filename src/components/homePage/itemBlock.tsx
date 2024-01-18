@@ -2,8 +2,8 @@ import Item from "../../models/ItemRequest"
 
 function ItemBlock(item: Item) {
     return (
-        <div className="relative w-[200px] h-[313px] lg:w-[285px] lg:h-[446px] justify-self-center border-2 rounded-xl m-3 transition-opacity ease-in-out duration-300">
-            <div className="absolute w-full h-full top-[211px] lg:top-[301px] left-0 bg-color-light-bg">
+        <div className="relative w-[200px] h-[313px] lg:w-[285px] lg:h-[446px] justify-self-center border-2 rounded-xl m-3 transition-opacity ease-in-out duration-300 bg-white">
+            <div className="absolute w-full h-fit top-[211px] lg:top-[301px] left-0">
                 <div className="relative w-3/4 h-2/4 top-[5px] left-[8px] lg:top-[16px] lg:left-[16px]">
                     <div className="absolute w-[249px] h-[30px] top-[69px] left-0">
                         <div className="flex items-center gap-[16px] relative">
@@ -28,17 +28,12 @@ function ItemBlock(item: Item) {
                     </div>
                 </div>
             </div>
-            <div className="absolute w-full h-[211px] lg:h-[301px] top-0 left-0 bg-sky-700">
+            <div className="absolute w-full h-[211px] lg:h-[301px] top-0 left-0 bg-transparent">
                 <div
-                    className={`absolute w-full h-[211px] lg:h-[301px] top-0 left-0 bg-[url(image-8.png)] bg-cover bg-[50%_50%]`}
+                    className={`absolute w-full h-[211px] lg:h-[301px] top-0 left-0 bg-cover bg-[50%_50%]`}
                 >
-                    <div className={`relative h-[211px] lg:h-[301px] bg-[url(image-7.png)] bg-cover bg-[50%_50%]`}>
-                        <img className="absolute w-full h-[211px] lg:h-[301px] top-0 left-0 object-cover" alt="Image" />
-                        <img className="absolute w-full h-[211px] lg:h-[301px] top-0 left-0" alt="Image" />
-                        <img className="absolute w-full h-[211px] lg:h-[301px] top-0 left-0 object-cover" alt="Image" />
-                        <img className="absolute w-full h-[211px] lg:h-[301px] top-0 left-0 object-cover" alt="Image" />
-                        <img className="absolute w-full h-[211px] lg:h-[301px] top-0 left-px object-cover" alt="Image" />
-                        <img className="absolute w-full h-[211px] lg:h-[301px] top-0 left-0 object-cover" alt="Image" />
+                    <div className={`relative h-[211px] lg:h-[301px] bg-cover bg-[50%_50%]`}>
+                        <img src={item.imageURLs.split(',')[0]} className="absolute w-full h-[211px] lg:h-[301px] top-0 left-0 object-cover rounded-t-xl" alt="Image" />
                     </div>
                 </div>
                 <div className="relative w-full h-full top-0 left-0">

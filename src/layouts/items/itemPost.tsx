@@ -136,7 +136,7 @@ function ItemPost() {
                 }
 
         if (!isEdit) {
-            ItemService.PostItem(sendItem).then(res => console.log(res));
+            ItemService.PostItem(sendItem).then(_ => navigate('/'));
         }
         else
             if (param.id) {

@@ -52,7 +52,7 @@ export default function ItemList() {
                 </div>
                 <ul className='pl-0 flex flex-wrap lg:grid grid-cols-3'>
                     {items.map((item) => (
-                        <ItemBlock id={item.id} title={item.title} category={item.category} startingPrice={item.startingPrice} currentBid={item.currentBid} description={item.description} postedByUserId={item.postedByUserId} key={item.id}></ItemBlock>
+                        <ItemBlock id={item.id} title={item.title} category={item.category} startingPrice={item.startingPrice} currentBid={item.currentBid} description={item.description} postedByUserId={item.postedByUserId} imageURLs={item.imageURLs} key={item.id}></ItemBlock>
                     ))}
                 </ul>
 

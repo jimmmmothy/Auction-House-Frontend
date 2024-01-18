@@ -7,10 +7,10 @@ class RegisterDTO {
     username: string
     password: string
     confirmPass: string
-    phone: string
+    phoneNumber: string
     country: string
 
-    constructor(email: string, firstName: string, lastName: string, username: string, password: string, confirmPass: string, phone: string, country: string, id?: number, role?: string) {
+    constructor(email: string, firstName: string, lastName: string, username: string, password: string, confirmPass: string, phoneNumber: string, country: string, id?: number, role?: string) {
         this.id = id;
         this.role = role;
         this.email = email;
@@ -19,7 +19,7 @@ class RegisterDTO {
         this.username = username;
         this.password = password;
         this.confirmPass = confirmPass;
-        this.phone = phone;
+        this.phoneNumber = phoneNumber;
         this.country = country;
     }
 }

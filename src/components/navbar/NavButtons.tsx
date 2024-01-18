@@ -36,16 +36,6 @@ const MenuLoggedIn = () => {
                     </Menu.Item>
                     <Menu.Item>
                         {({ active }) => (
-                            <a href="/settings"
-                                className={`${active ? 'bg-cyan-100' : 'text-gray-900'
-                                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                            >
-                                Settings
-                            </a>
-                        )}
-                    </Menu.Item>
-                    <Menu.Item>
-                        {({ active }) => (
                             <a onClick={logout}
                                 className={`${active ? 'bg-cyan-100' : 'text-gray-900'
                                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}

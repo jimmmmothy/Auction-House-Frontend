@@ -78,6 +78,12 @@ const Login: React.FC = () => {
                         isError: true,
                         message: error.response.data
                     });
+                } else if (error.status === "401 Unauthorized") {
+                    setIsSubmitting(true);
+                    setIsError({
+                        isError: true,
+                        message: "Invalid credentials"
+                    });
                 } else {
                     setIsSubmitting(true);
                     setIsError({

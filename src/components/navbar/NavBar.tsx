@@ -7,6 +7,7 @@ import { jwtDecode } from "jwt-decode";
 function NavBar() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     interface Payload {
         sub: string;
@@ -20,6 +21,9 @@ function NavBar() {
         if (token) {
             setIsLoggedIn(true);
             const decodedToken : Payload = jwtDecode(token);
+            if (decodedToken.role === "admin") {
+                setIsAdmin(true);
+            }
             const expiresAt = decodedToken.exp * 1000;
             const currentTime = Date.now();
             if (currentTime > expiresAt) {
@@ -70,6 +74,10 @@ function NavBar() {
                 <div className="space-x-5 mx-auto">
                     <a href="/post" className="nav-link">Post</a>
                 </div>
+                {isAdmin ? 
+                <div>
+                    <a href="/admin" className="nav-link">Admin</a>
+                </div> : ''}
                 <div className="flex lg:space-x-3 self-center">
                     {isLoggedIn ? (
                         <>
